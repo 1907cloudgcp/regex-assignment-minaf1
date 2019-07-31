@@ -1,0 +1,50 @@
+Mina Farag
+7/31/19
+
+#1 
+--comments: lines starting with letter Z. Don't need -i since they start with 
+  capital 'Z'. 
+grep '^Z' cities.txt
+
+#2 
+--comments: matches words that end in gan
+grep "gan\>" cities.txt
+
+#3
+--comments: match words starting with A,D or E and pipe it to wc for line count
+grep "^[ADE]" cities.txt | wc -l 
+
+#4
+--comment: match words starting with a alphabetic char then the next two characters
+  are a & r and pipe it to wc -l to count cities 
+grep "\<[a-zA-Z][a][r]" cities.txt | wc -l
+
+#5 
+--comment: very straight forward. match string starting with any not 'c' char.
+  and pipe it to get number of lines (cities)
+grep -i "^[^c]" cities.txt | wc -l
+
+#6
+--comment: this one needed to escape the '-' character  
+grep -inE "[a-zA-Z*'\-]{14,}" cities.txt
+
+#7 
+--comment: different from #1 above. it asks for a count of cities, hence the pipe
+  to wc -l 
+grep -i "^[b]" cities.txt | wc -l
+
+#8
+--comment: this one was a little ambiguous. I thought repeat throughout the word.
+  Then I realized it could be just be d repeated consecutively 
+grep -o "d*" cities.txt | wc -l
+
+#9
+--comment: I kept tried matching on end of line which failed of course. Once I 
+  switched to end of word instead, it gave the correct output. 
+grep -E ".*(.)(\1)\>" cities.txt
+
+#10
+--comment: The combination of both word boundaries and keeping the first 
+  back reference as 2 ensures that it matches with words are length 5.
+grep -iE '\<(.)(.).(\2)(\1)\>' cities.txt
+ 
